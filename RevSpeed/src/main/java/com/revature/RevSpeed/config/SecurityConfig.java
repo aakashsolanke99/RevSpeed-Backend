@@ -44,6 +44,8 @@ public class SecurityConfig {
                                         .requestMatchers("/user/login").permitAll()
                                         .requestMatchers("/user/create-user").permitAll()
                                         .requestMatchers("/email/sendemail").permitAll()
+                                        .requestMatchers("/email/**").permitAll().
+                                        requestMatchers("/user/**").permitAll()
                                         .anyRequest().authenticated())
                 .exceptionHandling(ex->ex.authenticationEntryPoint(point))   // if any exception occers this will run
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // statless menas we are not storing any thing on server

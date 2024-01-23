@@ -1,15 +1,26 @@
 package com.revature.RevSpeed.services;
 
+import com.revature.RevSpeed.models.User;
+import com.revature.RevSpeed.repositorys.UserRepository;
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Properties;
 
 @Service
 public class EmailService {
-    public boolean sendEmail(String subject, String message, String[] toMail) {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private UserRepository userRepository;
+    public boolean sendEmail(String subject, String message, String toMail) {
 
         String fromMail= "aakashsolanke99@gmail.com";
 
@@ -46,14 +57,14 @@ public class EmailService {
 
             m.setFrom(fromMail);
 
-            InternetAddress[] recipients = new InternetAddress[toMail.length];
-            int count = 0;
-            for(String res : toMail) {
-                recipients[count]= new InternetAddress(res.trim());
-                count++;
-            }
+//            InternetAddress[] recipients = new InternetAddress[toMail.length];
+//            int count = 0;
+//            for(String res : toMail) {
+//                recipients[count]= new InternetAddress(res.trim());
+//                count++;
+//            }
 
-            m.setRecipients(Message.RecipientType.TO, recipients);
+            m.setRecipients(Message.RecipientType.TO, toMail);
 
 
 
@@ -77,4 +88,25 @@ public class EmailService {
 
 
     }
+
+
+    public void updatePassword(String email, String newPassword) {
+
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        System.out.println(userOptional);
+
+        if (userOptional.isPresent()) {
+
+            User user = userOptional.get();
+            user.setPassword( passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+        } else {
+
+            // Handle the case where the user with the given email is not found
+            // You can throw an exception, return a specific response, etc.
+        }
+    }
+
+
+
 }

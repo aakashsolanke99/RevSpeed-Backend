@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @Getter
 public class Email {
-    private String[] toMail;
+    private String toMail;
     private String subject;
     private String message;
 }

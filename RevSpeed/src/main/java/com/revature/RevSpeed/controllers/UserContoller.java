@@ -5,6 +5,7 @@ import com.revature.RevSpeed.models.JwtRequest;
 import com.revature.RevSpeed.models.JwtResponse;
 import com.revature.RevSpeed.models.User;
 import com.revature.RevSpeed.security.JWTHelper;
+import com.revature.RevSpeed.services.EmailService;
 import com.revature.RevSpeed.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,11 +20,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 public class UserContoller {
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private UserDetailsService userDetailsService;  // for user details need to be fetch
@@ -101,6 +106,28 @@ public class UserContoller {
     @PostMapping("/create-user")
     public User createUser(@RequestBody SignUpRequest signUpRequest){
          return  (userService.createUser(signUpRequest));
+    }
+
+    @GetMapping("/isEmailPresent/{mail}")
+    public Boolean isEmailPresent(@PathVariable String mail){
+        return userService.isEmailPresent(mail);
+
+    }
+
+    @PostMapping("/send-otp/{email}")
+    public long sendOTP(@PathVariable String email){
+        System.out.println(email);
+
+
+        Random random =new Random();
+        int otp= random.nextInt(999999);
+        String subject="Forgout password";
+        String message="Thank you for using RevSpeed! Your One-Time Password (OTP) for account verification is:" +otp+ "\n" +
+                "      Please use this code to complete the verification process. If you didn't request this OTP, please ignore this email.  \n" +
+                "      For security reasons, please do not share your OTP with anyone. If you encounter any issues or did not request this OTP, please contact our support team immediately";
+
+       Boolean sendotp= emailService.sendEmail(subject,message,email);
+       return otp;
     }
 
 
