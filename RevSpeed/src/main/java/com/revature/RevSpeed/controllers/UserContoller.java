@@ -1,10 +1,12 @@
 package com.revature.RevSpeed.controllers;
 
 import com.revature.RevSpeed.dto.SignUpRequest;
+import com.revature.RevSpeed.models.BroadbandPlans;
 import com.revature.RevSpeed.models.JwtRequest;
 import com.revature.RevSpeed.models.JwtResponse;
 import com.revature.RevSpeed.models.User;
 import com.revature.RevSpeed.security.JWTHelper;
+import com.revature.RevSpeed.services.BroadbandPlansService;
 import com.revature.RevSpeed.services.EmailService;
 import com.revature.RevSpeed.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,7 @@ import java.util.Random;
 @RestController
 @RequestMapping("/user")
 public class UserContoller {
+
 
     @Autowired
     private EmailService emailService;
@@ -129,6 +132,8 @@ public class UserContoller {
        Boolean sendotp= emailService.sendEmail(subject,message,email);
        return otp;
     }
+
+
 
 
 }

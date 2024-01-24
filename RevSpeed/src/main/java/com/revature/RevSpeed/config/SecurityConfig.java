@@ -44,8 +44,14 @@ public class SecurityConfig {
                                         .requestMatchers("/user/login").permitAll()
                                         .requestMatchers("/user/create-user").permitAll()
                                         .requestMatchers("/email/sendemail").permitAll()
+                                        .requestMatchers("broadbandplans/**").permitAll()
+                                        .requestMatchers("businessplans/**").permitAll()
+                                        .requestMatchers("service/**").permitAll()
+                                        .requestMatchers("userservicelink/**").permitAll()
                                         .requestMatchers("/email/**").permitAll().
-                                        requestMatchers("/user/**").permitAll()
+                                        requestMatchers("/user/**").permitAll().
+                                        requestMatchers("/swagger-ui/**").permitAll()
+                                        .requestMatchers("/actuator/**").permitAll()
                                         .anyRequest().authenticated())
                 .exceptionHandling(ex->ex.authenticationEntryPoint(point))   // if any exception occers this will run
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // statless menas we are not storing any thing on server
