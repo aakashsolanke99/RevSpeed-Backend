@@ -6,7 +6,9 @@ import com.revature.RevSpeed.repositorys.BroadbandPlansRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BroadbandPlansService {
@@ -35,4 +37,15 @@ public class BroadbandPlansService {
     }
 
 
+    public Optional<BroadbandPlans> getDefaultBroadbandPlan() {
+        BroadbandPlans broadbandPlans=new BroadbandPlans();
+        broadbandPlans.setPlanName("no plan name");
+        broadbandPlans.setPlanType("No type");
+        broadbandPlans.setService(new com.revature.RevSpeed.models.Service());
+        broadbandPlans.setPrice(0.00);
+        broadbandPlans.setSpeed("00");
+        broadbandPlans.setOtt(new ArrayList<>());
+
+        return Optional.of(broadbandPlans);
+    }
 }

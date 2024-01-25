@@ -31,12 +31,12 @@ public class UserServiceLink {
 
     private LocalDate subscriptionStartDate;
 
-
     private LocalDate subscriptionEndDate;
 
 
-    private Boolean broadbandActive;
+    @Column(nullable = false)
+    private Boolean broadbandActive=false;
 
-
-    private Boolean BusinessIsActive;
+    @Column(nullable = false)
+    private Boolean BusinessIsActive=false;
 }
