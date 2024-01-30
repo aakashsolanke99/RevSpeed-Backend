@@ -57,4 +57,44 @@ public class UserService {
         }
 
     }
+
+
+    public String updateUsersDetails(String id, User user){
+        Optional<User> user1= userRepository.findById(String.valueOf(id));
+
+        if(user1.isPresent()){
+            User existingUser = user1.get();
+            existingUser.setFirstName(user.getFirstName());
+            existingUser.setLastName(user.getLastName());
+//            existingUser.setEmail(user.getEmail());
+            existingUser.setPhoneNo(user.getPhoneNo());
+            existingUser.setAddress(user.getAddress());
+            userRepository.save(existingUser);
+
+        }
+
+        return "user details updated";
+    }
+
+    public void deletUser(String id){
+         userRepository.deleteByEmail(id);
+    }
+
+    public String updatePassword(String id,String password){
+        System.out.println("inside service");
+
+        Optional<User> user =userRepository.findById(id);
+        if(user.isPresent()){
+            User user1=user.get();
+            System.out.println(password);
+            user1.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user1);
+        }
+        return "passsword updated";
+    }
+
+
+    public void deleteuser(String userId) {
+        userRepository.deleteuser(userId);
+    }
 }

@@ -48,4 +48,8 @@ public class BroadbandPlansService {
 
         return Optional.of(broadbandPlans);
     }
+
+    public List<BroadbandPlans> getAllBroadbandPlans() {
+        return broadbandPlansRepository.findAll();
+    }
 }

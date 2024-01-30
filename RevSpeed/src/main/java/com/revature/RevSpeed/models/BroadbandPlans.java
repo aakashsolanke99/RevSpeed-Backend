@@ -19,9 +19,12 @@ public class BroadbandPlans {
     private Long id;
     private String planName;
     private String planType;
-
     private double price;
     private String speed;
+    private String dataLimit;
+    private int validity;
+
+
 
     @ManyToOne
     @JoinColumn(name = "service_id")
@@ -31,11 +34,13 @@ public class BroadbandPlans {
     @OneToMany(mappedBy = "broadbandPlan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OTT> ott;
 
-    public BroadbandPlans(String planName, String planType, double price, String speed,Service service, List<OTT> ott) {
+    public BroadbandPlans(String planName, String planType, double price, String speed,String dataLimit , int validity,Service service, List<OTT> ott) {
         this.planName = planName;
         this.planType = planType;
         this.price = price;
         this.speed = speed;
+        this.dataLimit=dataLimit;
+        this.validity=validity;
         this.service=service;
         this.ott = ott;
         if (ott != null) {

@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/broadbandplans")
+@CrossOrigin(origins = "*")
 public class BroadbandplansController {
 
     @Autowired
@@ -23,6 +24,12 @@ public class BroadbandplansController {
     @PostMapping("/add")
     public BroadbandPlans addBroadbandPlanWithOTT(@RequestBody BroadbandPlans broadbandPlan) {
         return broadbandPlansService.addBroadbandPlanWithOTT(broadbandPlan);
+    }
+
+
+    @GetMapping("/getAllplans")
+    public List<BroadbandPlans> getAllBroadbandPlans() {
+        return broadbandPlansService.getAllBroadbandPlans();
     }
 
 
