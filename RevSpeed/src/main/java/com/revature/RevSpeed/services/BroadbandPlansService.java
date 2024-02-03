@@ -52,4 +52,12 @@ public class BroadbandPlansService {
     public List<BroadbandPlans> getAllBroadbandPlans() {
         return broadbandPlansRepository.findAll();
     }
+
+
+    // udays code
+
+    public void deletePlanById(int planId) {
+        System.out.println(planId+"dfghj");
+        broadbandPlansRepository.deleteById((long) planId);
+    }
 }
