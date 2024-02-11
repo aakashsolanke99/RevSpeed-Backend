@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 
-//@CrossOrigin(origins = "*")
+// hi
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/admin")
-@CrossOrigin(origins = {"http://localhost:4200"})
+//@CrossOrigin(origins = {"http://localhost:4200"})
 public class AdminController {
 
     @Autowired
